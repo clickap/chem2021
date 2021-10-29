@@ -110,10 +110,10 @@
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <intProp name="LoopController.loops">-1</intProp>
+          <stringProp name="LoopController.loops">1</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${__P(threads,50)}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${__P(rampup,30)}</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${__property(users,users,50)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${__P(rampup,10)}</stringProp>
         <longProp name="ThreadGroup.start_time">1345498621000</longProp>
         <longProp name="ThreadGroup.end_time">1345498621000</longProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
@@ -134,7 +134,7 @@
           <boolProp name="ignoreFirstLine">false</boolProp>
         </CSVDataSet>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Frontpage not logged" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="front_page" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
@@ -161,7 +161,7 @@
           </GaussianRandomTimer>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Login page" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Login" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="username" elementType="HTTPArgument">
@@ -190,14 +190,23 @@
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <boolProp name="HTTPSampler.image_parser">true</boolProp>
-          <boolProp name="HTTPSampler.concurrentDwn">true</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Login Extractor" enabled="true">
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Logged in" enabled="false">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="1063731617">&lt;div class=&quot;loginpanel&quot;&gt;
+</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">2</intProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Logged Extractor" enabled="true">
             <stringProp name="RegexExtractor.useHeaders">false</stringProp>
             <stringProp name="RegexExtractor.refname">SESSION_SESSKEY</stringProp>
             <stringProp name="RegexExtractor.regex">sesskey=([^&quot;]+)&quot;</stringProp>
@@ -208,7 +217,7 @@
           </RegexExtractor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="View course" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="view_course" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="id" elementType="HTTPArgument">
@@ -230,19 +239,12 @@
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <boolProp name="HTTPSampler.image_parser">true</boolProp>
-          <boolProp name="HTTPSampler.concurrentDwn">true</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="TestPlan.comments">		</stringProp>
         </HTTPSamplerProxy>
-        <hashTree>
-          <GaussianRandomTimer guiclass="GaussianRandomTimerGui" testclass="GaussianRandomTimer" testname="think_time" enabled="true">
-            <stringProp name="ConstantTimer.delay">1000</stringProp>
-            <stringProp name="RandomTimer.range">5000</stringProp>
-          </GaussianRandomTimer>
-          <hashTree/>
-        </hashTree>
+        <hashTree/>
       </hashTree>
     </hashTree>
   </hashTree>
